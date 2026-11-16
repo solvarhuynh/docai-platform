@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="360" viewBox="0 0 1280 360" role="img" aria-labelledby="title desc">
+  <title id="title">DocAI — Document Intelligence Platform</title>
+  <desc id="desc">Minimal, centered DocAI logo and tagline for a GitHub README. Invoice and Contract Intelligence with Dual AI Engines.</desc>
+  <defs>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#37e4c6"/>
+      <stop offset="0.48" stop-color="#47dcca"/>
+      <stop offset="1" stop-color="#86bfff"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#55e3d7"/>
+      <stop offset="1" stop-color="#5aaaff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="360" rx="20" fill="#0d1117"/>
+
+  <!-- Central document monogram, drawn as editable SVG geometry -->
+  <g transform="translate(439 100)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M13 3 H58 L78 24 V84 Q78 92 70 92 H13 Q4 92 4 83 V13 Q4 3 13 3Z"
+          stroke="url(#paper)" stroke-width="5.5"/>
+    <path d="M57.5 4 V21 Q57.5 27 64 27 H77" stroke="url(#paper)" stroke-width="4.5"/>
+    <path d="M21 49 H60" stroke="#d9f5f6" stroke-width="5" opacity="0.92"/>
+    <path d="M21 63 H51" stroke="#d9f5f6" stroke-width="5" opacity="0.72"/>
+    <path d="M21 77 H40" stroke="#d9f5f6" stroke-width="5" opacity="0.52"/>
+    <circle cx="64" cy="76" r="4.5" fill="#39dfc2" stroke="none"/>
+  </g>
+  <text x="539" y="189" font-family="Inter, 'Inter Display', 'Segoe UI', Arial, sans-serif"
+        font-weight="750" font-size="102" letter-spacing="-4" fill="url(#brand)">DocAI</text>
+
+  <text x="640" y="248" text-anchor="middle"
+        font-family="Inter, 'Segoe UI', Arial, sans-serif" font-weight="650"
+        font-size="26" letter-spacing="-0.3" fill="#f0f6fc">Document Intelligence Platform</text>
+  <text x="640" y="289" text-anchor="middle"
+        font-family="Inter, 'Segoe UI', Arial, sans-serif" font-weight="400"
+        font-size="17.5" fill="#9baaba">Invoice &amp; Contract Intelligence · Dual AI Engines</text>
+</svg>
