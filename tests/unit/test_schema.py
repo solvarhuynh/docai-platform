@@ -1,11 +1,11 @@
 """
-Unit test kiểm tra tính toàn vẹn và xác thực của JSON schema (docai.core.schema).
+Kiểm tra schema đầu ra dùng chung của hai track.
 """
 
 import unittest
 from pydantic import ValidationError
 
-from docai.core.schema import (
+from docai.shared.schema import (
     BoundingBox,
     DocumentType,
     ExtractedField,
@@ -17,7 +17,7 @@ from docai.core.schema import (
 
 class TestSchemaModels(unittest.TestCase):
     """
-    Kiểm tra các Pydantic models trong docai.core.schema.
+    Kiểm tra các model Pydantic trong docai.shared.schema.
     """
 
     def test_bounding_box_valid(self):

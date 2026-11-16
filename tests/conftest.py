@@ -2,7 +2,7 @@
 Pytest configuration và fixtures dùng chung cho test suite.
 """
 
-from docai.core.schema import (
+from docai.shared.schema import (
     BoundingBox,
     DocumentType,
     ExtractedField,

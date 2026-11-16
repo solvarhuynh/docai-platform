@@ -1,11 +1,11 @@
 """
-Integration test kiểm tra các route của FastAPI Service (docai.api.main).
+Kiểm tra các route tối thiểu của FastAPI.
 """
 
 import unittest
 
 try:
-    from docai.api.main import app
+    from docai.shared.api import app
     FASTAPI_AVAILABLE = True
 except ImportError:
     FASTAPI_AVAILABLE = False
@@ -22,8 +22,6 @@ class TestAPIRoutes(unittest.TestCase):
         self.assertIn("/health", registered_paths)
         self.assertIn("/parse/classic", registered_paths)
         self.assertIn("/parse/vlm", registered_paths)
-        self.assertIn("/compare", registered_paths)
-        self.assertIn("/explain", registered_paths)
 
     @unittest.skipUnless(FASTAPI_AVAILABLE, "FastAPI chưa được cài đặt trong môi trường này")
     def test_health_route_methods(self):
@@ -35,8 +33,6 @@ class TestAPIRoutes(unittest.TestCase):
     def test_parsing_routes_methods(self):
         classic_route = next((r for r in app.routes if r.path == "/parse/classic"), None)
         vlm_route = next((r for r in app.routes if r.path == "/parse/vlm"), None)
-        compare_route = next((r for r in app.routes if r.path == "/compare"), None)
-        explain_route = next((r for r in app.routes if r.path == "/explain"), None)
 
         self.assertIsNotNone(classic_route)
         self.assertIn("POST", classic_route.methods)
@@ -44,11 +40,6 @@ class TestAPIRoutes(unittest.TestCase):
         self.assertIsNotNone(vlm_route)
         self.assertIn("POST", vlm_route.methods)
 
-        self.assertIsNotNone(compare_route)
-        self.assertIn("POST", compare_route.methods)
-
-        self.assertIsNotNone(explain_route)
-        self.assertIn("POST", explain_route.methods)
 
 
 if __name__ == "__main__":
