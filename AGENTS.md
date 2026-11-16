@@ -160,12 +160,8 @@ risk hoặc confidence nếu engine không cung cấp.
     ├── how-to-run.md                Hướng dẫn chạy chi tiết
     ├── processing-tracks.md         Giải thích hai hướng xử lý
     └── tasks/
-        ├── task-split.md             Master ownership, gates, dependency, roadmap
         ├── track-a-classic.md        Task plan Track A
-        ├── track-b-vlm.md            Task plan Track B
-        ├── data-foundation-tasks.md   Task plan dữ liệu
-        ├── product-engineering-tasks.md Task plan API, UI và integration
-        └── research-evaluation-tasks.md Task plan protocol và đánh giá
+        └── track-b-vlm.md            Track B, master plan và task dùng chung
 ```
 
 `scripts/` ở mỗi Track chỉ nhận argument, gọi package và trình bày kết quả.
@@ -182,9 +178,9 @@ hành. `.cursor/rules/` đã được repository owner chủ động xóa; khôn
 
 ## 5. Ownership và ranh giới làm việc
 
-Task-level owner/reviewer nằm trong
-[`docs/tasks/task-split.md`](docs/tasks/task-split.md); đọc task plan chi tiết
-trước khi làm.
+Task-level owner/reviewer, dependency, gate và roadmap nằm trong
+[`docs/tasks/track-b-vlm.md`](docs/tasks/track-b-vlm.md), phần “Điều phối chung
+DocAI”. Đọc task plan Track A/B tương ứng trước khi làm.
 
 - **Thành viên A — Track A:** Layout, OCR, token/box, KIE, Invoice/Contract
   mapping và runner/diagnostic của Track A.
@@ -249,9 +245,9 @@ hoặc logic fixture.
 - Cách chạy đầy đủ: [`docs/how-to-run.md`](docs/how-to-run.md).
 - Kiến trúc/cây repo: [`docs/architecture.md`](docs/architecture.md).
 - Track, model, pipeline: [`docs/processing-tracks.md`](docs/processing-tracks.md).
-- Ownership, dependency, gate và roadmap:
-  [`docs/tasks/task-split.md`](docs/tasks/task-split.md).
-- Kế hoạch chi tiết: các file cùng thư mục `docs/tasks/` theo workstream.
+- Ownership, dependency, gate, roadmap, Track B và task dùng chung:
+  [`docs/tasks/track-b-vlm.md`](docs/tasks/track-b-vlm.md).
+- Kế hoạch Track A: [`docs/tasks/track-a-classic.md`](docs/tasks/track-a-classic.md).
 - Chi tiết code owner: `backend/track-a/README.md` và
   `backend/track-b/README.md`.
 - Trạng thái lịch sử: `backend/track-a/CHANGELOG.md` và

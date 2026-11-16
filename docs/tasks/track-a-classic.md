@@ -18,6 +18,11 @@ document/pages → layout → OCR text + geometry → KIE
 cho input/data mapping, shared boundary và reproducibility. Product Engineering
 review runner contract; Research review protocol/model comparison.
 
+Ownership toàn repository, execution gates và các task dùng chung về dữ liệu,
+Product Engineering, Research & Evaluation nằm trong phần đầu và cuối của
+[`track-b-vlm.md`](track-b-vlm.md). Đọc phần đó khi task Track A phụ thuộc shared
+contract hoặc workstream khác.
+
 ## Audit code thật tại thời điểm viết kế hoạch
 
 - `backend/track-a/src/docai/track_a/pipeline.py` có `LayoutDetector`,

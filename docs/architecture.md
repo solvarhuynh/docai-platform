@@ -66,6 +66,6 @@ tương lai; không thêm hoặc giả định risk engine trong lần tổ ch�
 
 ## Ownership và roadmap
 
-Phân công tổng thể, dependency graph và execution gates nằm ở
-[`docs/tasks/task-split.md`](tasks/task-split.md). Tài liệu đó liên kết các kế
-hoạch Track A/B, Data Foundation, Product Engineering và Research & Evaluation.
+Phân công tổng thể, dependency graph, execution gates và các task dùng chung
+nằm ở [`docs/tasks/track-b-vlm.md`](tasks/track-b-vlm.md). Kế hoạch Track A nằm
+riêng tại [`docs/tasks/track-a-classic.md`](tasks/track-a-classic.md).

@@ -148,12 +148,8 @@ python -m unittest discover -s tests -p "test_*.py" -v
 - [Hướng dẫn chạy chi tiết](docs/how-to-run.md)
 - [Kiến trúc hệ thống](docs/architecture.md)
 - [Khái niệm DocAI & Processing Tracks](docs/processing-tracks.md)
-- [Phân công tổng thể](docs/tasks/task-split.md)
 - [Kế hoạch Track A](docs/tasks/track-a-classic.md)
-- [Kế hoạch Track B](docs/tasks/track-b-vlm.md)
-- [Data Foundation](docs/tasks/data-foundation-tasks.md)
-- [Product Engineering](docs/tasks/product-engineering-tasks.md)
-- [Research & Evaluation](docs/tasks/research-evaluation-tasks.md)
+- [Kế hoạch Track B, ownership tổng thể và các workstream dùng chung](docs/tasks/track-b-vlm.md)
 - [Quy tắc repository (`AGENTS.md`)](AGENTS.md)
 
 ---
