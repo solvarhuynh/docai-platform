@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "docai"
 version = "0.1.0"
-description = "Document Intelligence platform for invoice and contract intelligence with a React frontend, FastAPI backend, classic and VLM processing backends, plus integrated research evaluation."
+description = "Small FastAPI service with Classic and VLM document processing tracks."
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [
@@ -24,14 +24,8 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = [
-    "pytest>=8.0.0",
-]
-api = [
-    "fastapi>=0.110.0",
-    "uvicorn[standard]>=0.28.0",
-    "python-multipart>=0.0.9",
-]
+api = ["fastapi>=0.110.0", "uvicorn[standard]>=0.28.0", "python-multipart>=0.0.9"]
 
 [tool.setuptools.packages.find]
-where = ["src"]
+where = ["backend/shared/src", "backend/track-a/src", "backend/track-b/src"]
+include = ["docai*"]
