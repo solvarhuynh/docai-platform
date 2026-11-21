@@ -26,7 +26,7 @@
 
 ## Tổng quan dự án
 
-**DocAI** là dự án thử nghiệm và so sánh hai hướng tiếp cận AI để trích xuất dữ liệu có cấu trúc từ **Invoice** (hóa đơn) và **Contract** (hợp đồng). Hệ thống dùng backend **FastAPI** làm lớp điều phối thống nhất và giao diện **React + TypeScript + Vite** để thao tác trên cùng một schema đầu ra [`UnifiedDocumentOutput`](backend/shared/src/docai/shared/schema.py).
+**DocAI** là dự án thử nghiệm và so sánh hai hướng tiếp cận AI để trích xuất dữ liệu có cấu trúc từ **Invoice** (hóa đơn) và **Contract** (hợp đồng). Hệ thống dùng **FastAPI** làm lớp điều phối thống nhất và giao diện **React + TypeScript + Vite** để thao tác trên cùng một schema đầu ra [`UnifiedDocumentOutput`](src/docai/shared/schema.py).
 
 - **Track A — Classic Multi-Stage:** `tài liệu → layout → OCR → KIE → UnifiedDocumentOutput`
 - **Track B — VLM-Native:** `tài liệu + prompt → VLM → parse/validate → UnifiedDocumentOutput`
@@ -40,10 +40,10 @@
 
 ```mermaid
 flowchart LR
-    DOC["Tài liệu đầu vào<br/>(Invoice / Contract)"] --> API["FastAPI Service<br/>backend/shared/src/docai/shared/api.py"]
+    DOC["Tài liệu đầu vào<br/>(Invoice / Contract)"] --> API["FastAPI Service<br/>src/docai/api.py"]
     API -->|"/parse/classic"| TA["Track A · Classic<br/>Layout → OCR → KIE"]
     API -->|"/parse/vlm"| TB["Track B · VLM<br/>Prompt → VLM → Parser"]
-    TA --> SCHEMA["UnifiedDocumentOutput<br/>backend/shared/src/docai/shared/schema.py"]
+    TA --> SCHEMA["UnifiedDocumentOutput<br/>src/docai/shared/schema.py"]
     TB --> SCHEMA
     SCHEMA --> UI["React + TypeScript UI<br/>frontend/"]
 ```
@@ -51,12 +51,13 @@ flowchart LR
 | Tiêu chí | Track A — Classic | Track B — VLM |
 | --- | --- | --- |
 | **Chiến lược** | Đa tầng tách biệt: Layout Detection → OCR → Key Information Extraction | Trực tiếp từ ảnh/PDF tài liệu + prompt có cấu trúc |
-| **Module Python** | [`backend/track-a/`](backend/track-a/README.md) | [`backend/track-b/`](backend/track-b/README.md) |
-| **CLI kiểm tra** | [`backend/track-a/scripts/run.py`](backend/track-a/scripts/run.py) | [`backend/track-b/scripts/run.py`](backend/track-b/scripts/run.py) |
+| **Module Python** | [`src/docai/track_a/`](src/docai/track_a/) | [`src/docai/track_b/`](src/docai/track_b/) |
+| **CLI kiểm tra** | `python -m docai.track_a` | `python -m docai.track_b` |
 | **API Route** | `POST /parse/classic` | `POST /parse/vlm` |
 | **Đầu ra chuẩn** | `UnifiedDocumentOutput` | `UnifiedDocumentOutput` |
 | **Tình trạng** | Scaffold (`501`) | Scaffold (`501`) |
 
+`track_a` và `track_b` chỉ được import `docai.shared`, không import lẫn nhau.
 Chỉ bổ sung phần hỗ trợ mới khi đã chọn model và có đầu việc cụ thể.
 
 ---
@@ -64,19 +65,27 @@ Chỉ bổ sung phần hỗ trợ mới khi đã chọn model và có đầu vi�
 ## Cấu trúc repository
 
 ```text
-backend/
-├── shared/src/docai/shared/  FastAPI, config và schema dùng chung
-├── track-a/                  Thành viên A: src/ và scripts/ riêng
-└── track-b/                  Thành viên B: src/ và scripts/ riêng
-tests/
-├── unit/                  Unit test cho schema và config
-└── integration/           Integration test cho API routes
-frontend/                  Giao diện React 18 + TypeScript + Vite
-docs/                      Kiến trúc, hướng dẫn, khái niệm và task owner
-docker-compose.yml         Cấu hình chạy API bằng Docker Compose
-pyproject.toml             Khai báo package docai và dependencies
-AGENTS.md                  Quy tắc làm việc cho AI agent trong repository
+.
+├── README.md, AGENTS.md, CODEOWNERS
+├── pyproject.toml, requirements.txt, docker-compose.yml, .gitignore
+├── src/docai/
+│   ├── __init__.py, api.py
+│   ├── shared/              Schema và config dùng chung
+│   ├── track_a/             Pipeline và CLI của Thành viên A
+│   └── track_b/             Parser và CLI của Thành viên B
+├── tests/
+│   ├── conftest.py, shared/
+│   ├── track_a/
+│   └── track_b/
+├── notebooks/               01-eda.ipynb cũ; track_a/, track_b/
+├── data/                    raw/, processed/ (chỉ .gitkeep trong Git)
+├── frontend/                React + TypeScript + Vite
+└── docs/
+    ├── architecture.md
+    └── tasks/               shared.md, track-a.md, track-b.md
 ```
+
+`notebooks/01-eda.ipynb` còn tham chiếu package cũ và chưa chạy được theo source hiện tại.
 
 ---
 
@@ -90,7 +99,7 @@ Yêu cầu **Python 3.10+**. Từ thư mục gốc của repository:
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
-uvicorn docai.shared.api:app --reload --host 127.0.0.1 --port 8000
+uvicorn docai.api:app --reload --host 127.0.0.1 --port 8000
 ```
 
 Sau khi khởi động, kiểm tra service tại `http://127.0.0.1:8000/health` hoặc tài liệu Swagger tại `http://127.0.0.1:8000/docs`.
@@ -105,6 +114,8 @@ npm install
 npm run dev
 ```
 
+Vite chuyển các request `/api` tới FastAPI ở cổng `8000`.
+
 ### 3. Chạy bằng Docker Compose (tùy chọn)
 
 ```powershell
@@ -116,8 +127,8 @@ docker compose up --build
 Các lệnh CLI hiện chỉ kiểm tra tính hợp lệ của tham số đầu vào và in thông tin scaffold (chưa chạy inference model):
 
 ```powershell
-python backend/track-a/scripts/run.py --image path/to/document.jpg
-python backend/track-b/scripts/run.py --image path/to/document.jpg --type invoice
+python -m docai.track_a --image path/to/document.jpg
+python -m docai.track_b --image path/to/document.jpg --type invoice
 ```
 
 ---
@@ -131,25 +142,24 @@ python backend/track-b/scripts/run.py --image path/to/document.jpg --type invoic
 | `/parse/vlm` | `POST` | Trích xuất tài liệu theo pipeline Track B (`file`, `document_type`) | `501 Not Implemented` |
 
 > [!IMPORTANT]
-> **Đồng bộ Schema:** Mọi thay đổi đối với [`backend/shared/src/docai/shared/schema.py`](backend/shared/src/docai/shared/schema.py) bắt buộc phải được cập nhật tương ứng trong [`frontend/src/types/document.ts`](frontend/src/types/document.ts) để giữ đồng bộ hợp đồng giữa backend và frontend.
+> **Đồng bộ Schema:** Mọi thay đổi đối với [`src/docai/shared/schema.py`](src/docai/shared/schema.py) bắt buộc phải được cập nhật tương ứng trong [`frontend/src/types/document.ts`](frontend/src/types/document.ts) và được cả hai Track review.
 
 ---
 
 ## Kiểm thử & Tài liệu
 
-Chạy test Python hiện có:
+Chạy test Python hiện có sau khi cài package:
 
 ```powershell
-python -m unittest discover -s tests -p "test_*.py" -v
+pytest -q
 ```
 
 ### Tài liệu tham khảo trong repo
 
-- [Hướng dẫn chạy chi tiết](docs/how-to-run.md)
-- [Kiến trúc hệ thống](docs/architecture.md)
-- [Khái niệm DocAI & Processing Tracks](docs/processing-tracks.md)
-- [Kế hoạch Track A](docs/tasks/track-a-classic.md)
-- [Kế hoạch Track B, ownership tổng thể và các workstream dùng chung](docs/tasks/track-b-vlm.md)
+- [Kiến trúc hệ thống và hai processing Track](docs/architecture.md)
+- [Kế hoạch chung, ownership và workstream Data/Product/Research](docs/tasks/shared.md)
+- [Kế hoạch Track A](docs/tasks/track-a.md)
+- [Kế hoạch Track B](docs/tasks/track-b.md)
 - [Quy tắc repository (`AGENTS.md`)](AGENTS.md)
 
 ---

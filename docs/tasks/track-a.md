@@ -19,19 +19,19 @@ cho input/data mapping, shared boundary và reproducibility. Product Engineering
 review runner contract; Research review protocol/model comparison.
 
 Ownership toàn repository, execution gates và các task dùng chung về dữ liệu,
-Product Engineering, Research & Evaluation nằm trong phần đầu và cuối của
-[`track-b-vlm.md`](track-b-vlm.md). Đọc phần đó khi task Track A phụ thuộc shared
+Product Engineering, Research & Evaluation nằm trong
+[`shared.md`](shared.md). Đọc phần đó khi task Track A phụ thuộc shared
 contract hoặc workstream khác.
 
 ## Audit code thật tại thời điểm viết kế hoạch
 
-- `backend/track-a/src/docai/track_a/pipeline.py` có `LayoutDetector`,
+- `src/docai/track_a/pipeline.py` có `LayoutDetector`,
   `OCRExtractor`, `LayoutLMv3Extractor`. Inference methods ném
   `NotImplementedError`; polygon-to-box và lọc region là utility code.
-- `backend/track-a/src/docai/track_a/__init__.py` export các class trên.
-- `backend/track-a/scripts/run.py` kiểm tra input path và in stage names; không
+- `src/docai/track_a/__init__.py` export các class trên.
+- `src/docai/track_a/__main__.py` kiểm tra input path và in stage names; không
   chạy model.
-- Shared contract hiện ở `backend/shared/src/docai/shared/schema.py`.
+- Shared contract hiện ở `src/docai/shared/schema.py`.
 - Không thấy checkpoint/model config, OCR/layout weights, dataset hoặc test riêng
   Track A. Model candidate trong nội dung này chỉ là candidate.
 
@@ -45,8 +45,8 @@ contract hoặc workstream khác.
 - **Các bước:** Kiểm tra Track A source/CLI/import/test; phân loại implemented,
   scaffold, planned, not selected; xác nhận Invoice và Contract cùng thuộc
   Track A; ghi dependency với Data, PE và Research.
-- **Files:** `backend/track-a/src/docai/track_a/`,
-  `backend/track-a/scripts/run.py`, `backend/shared/src/docai/shared/schema.py`,
+- **Files:** `src/docai/track_a/`,
+  `src/docai/track_a/__main__.py`, `src/docai/shared/schema.py`,
   `tests/`.
 - **Đầu ra:** Inventory thực tế và danh sách gap.
 - **PASS:** Path và trạng thái khớp working tree; `pipeline.py` được ghi scaffold,
@@ -64,7 +64,7 @@ contract hoặc workstream khác.
   values ảnh hưởng mapping cho cả hai domain.
 - **Primary owner / reviewer:** A / B; PE1 review integration boundary.
 - **Phụ thuộc:** A0. Đây là proposal chuẩn bị cho G1; không chờ G1 trước khi soạn.
-- **Đầu vào:** `backend/shared/src/docai/shared/schema.py`, dataset annotation
+- **Đầu vào:** `src/docai/shared/schema.py`, dataset annotation
   mapping khi có, Track B page/input proposal.
 - **Các bước:** Định nghĩa page index, reading order, token text/confidence,
   polygon/box coordinate convention, normalized vs pixel, missing/unreadable
@@ -97,7 +97,7 @@ contract hoặc workstream khác.
   hardware và domain coverage. YOLO/doc-layout families là candidate nếu có
   evidence, chưa được chốt.
 - **Files:** `pipeline.py` hiện chỉ scaffold; output code dự kiến trong
-  `backend/track-a/src/docai/track_a/`.
+  `src/docai/track_a/`.
 - **Đầu ra:** Page/layout interface, candidate matrix và regions có label,
   confidence, page, source-coordinate box.
 - **PASS:** Transform reversible/traceable; box hợp lệ; page order không mất;
@@ -142,7 +142,7 @@ contract hoặc workstream khác.
 - **Các bước:** Chốt containment/overlap rule, tie-break, reading order theo
   layout; xử lý token ngoài region, overlapping region và box rỗng; giữ nguyên
   source geometry và association confidence.
-- **Files:** `backend/track-a/src/docai/track_a/pipeline.py` hoặc module con chỉ
+- **Files:** `src/docai/track_a/pipeline.py` hoặc module con chỉ
   khi logic tách biệt và task được duyệt.
 - **Đầu ra:** Token records có layout context và deterministic order.
 - **PASS:** Không đổi box gốc; mọi token được associate hoặc ghi unassigned;
@@ -239,8 +239,8 @@ contract hoặc workstream khác.
 - **Các bước:** Orchestrate pages/layout/OCR/association/KIE/mapping; trả
   `pipeline_track=track_a_classic`; ghi model/version/config khi thật có; giữ
   stage-level errors; timing chỉ khi đo thật; thiếu model báo `unavailable`.
-- **Files:** `backend/track-a/src/docai/track_a/`; public export
-  `__init__.py`; CLI `backend/track-a/scripts/run.py`.
+- **Files:** `src/docai/track_a/`; public export
+  `__init__.py`; CLI `src/docai/track_a/__main__.py`.
 - **Đầu ra:** Runner interface trả `UnifiedDocumentOutput` hoặc typed error.
 - **PASS:** Product gọi được không import model internals; schema validate;
   thiếu inference trả typed unavailable; Invoice/Contract cùng boundary. Mock
@@ -265,7 +265,7 @@ contract hoặc workstream khác.
   stage diagnostics/counts; safe run record có model/checkpoint, preprocessing,
   hardware, input scope, versions và failures; bàn giao sample đã khử nhạy cảm.
 - **Files:** `tests/` shared chỉ cho contract/integration; Track-specific tests
-  dưới `backend/track-a/tests/` chỉ tạo khi có nội dung thật và được thống nhất.
+  dưới `tests/track_a/` chỉ tạo khi có nội dung thật và được thống nhất.
 - **Đầu ra:** Test evidence và Research handoff bundle/template.
 - **PASS:** Deterministic transformations có coverage; logs không chứa key/full
   document; real metrics chỉ có ground truth/run tái lập; fixture ghi test-only.
