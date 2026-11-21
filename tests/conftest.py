@@ -2,6 +2,8 @@
 Pytest configuration và fixtures dùng chung cho test suite.
 """
 
+import pytest
+
 from docai.shared.schema import (
     BoundingBox,
     DocumentType,
@@ -10,6 +12,7 @@ from docai.shared.schema import (
 )
 
 
+@pytest.fixture
 def sample_invoice_output() -> UnifiedDocumentOutput:
     """
     Fixture tạo mẫu UnifiedDocumentOutput cho hóa đơn.

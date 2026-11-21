@@ -1,0 +1,8 @@
+/src/docai/track_a/   @GITHUB_USER_A
+/tests/track_a/       @GITHUB_USER_A
+/notebooks/track_a/   @GITHUB_USER_A
+/src/docai/track_b/   @GITHUB_USER_B
+/tests/track_b/       @GITHUB_USER_B
+/notebooks/track_b/   @GITHUB_USER_B
+/src/docai/shared/    @GITHUB_USER_A @GITHUB_USER_B
+/src/docai/api.py     @GITHUB_USER_A @GITHUB_USER_B

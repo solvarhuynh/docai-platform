@@ -1,4 +1,4 @@
-"""API công khai của Track B VLM."""
+"""Thành viên B: VLM prompt/parser; inference hiện là SCAFFOLD."""
 
 from docai.track_b.parser import VLMDocumentParser
 

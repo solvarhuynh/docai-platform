@@ -5,7 +5,7 @@ Kiểm tra các route tối thiểu của FastAPI.
 import unittest
 
 try:
-    from docai.shared.api import app
+    from docai.api import app
     FASTAPI_AVAILABLE = True
 except ImportError:
     FASTAPI_AVAILABLE = False

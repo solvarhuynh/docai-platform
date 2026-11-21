@@ -7,7 +7,7 @@ services:
         WORKDIR /app
         COPY . .
         RUN pip install --no-cache-dir -e ".[api]"
-        CMD ["uvicorn", "docai.shared.api:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+        CMD ["uvicorn", "docai.api:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
     container_name: docai_api
     ports:
       - "8000:8000"
