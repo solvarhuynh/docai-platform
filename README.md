@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="frontend/banner.svg" alt="DocAI — Dual-Track Document Information Extraction" width="100%">
+  <img src="frontend/banner.svg" alt="DocAI — Dual-Track Document Information Extraction" width="50%">
 </p>
 
 <p align="center">

@@ -30,7 +30,4 @@
   <text x="640" y="248" text-anchor="middle"
         font-family="Inter, 'Segoe UI', Arial, sans-serif" font-weight="650"
         font-size="26" letter-spacing="-0.3" fill="#f0f6fc">Document Intelligence Platform</text>
-  <text x="640" y="289" text-anchor="middle"
-        font-family="Inter, 'Segoe UI', Arial, sans-serif" font-weight="400"
-        font-size="17.5" fill="#9baaba">Invoice &amp; Contract Intelligence · Dual AI Engines</text>
 </svg>
